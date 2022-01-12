@@ -1,0 +1,42 @@
+# THE PURPOSE OF THIS SCRIPT IS TO MAP RETAILERS TO CONGRESSIONAL DISTRICTS BASED ON ZIP CODES
+
+BEGIN{
+    path = "/home/penina/Desktop/Linux/SemesterProject/SNAP_DATA/"
+    CD = path "CD_ZIP_092021_CLEAN.csv"
+    retailers = path "Historical_SNAP_Retailer_Locator_Incomes.csv"
+
+    # create array of congressional districts and zipcodes
+    load_CD_dict(CD)
+
+    # add column of congressional districts to retail data
+    add_CD(retailers, CD_dict)
+}
+
+# create a dictionary where key=zipcode and data=congressional district
+function load_CD_dict(CD){
+    FS=","
+
+    while ((getline <CD)>0){
+	CD_dict[$2]=$1
+#	print "zip", $2, "cd", $1
+    }
+}
+
+# add congressional district to retailers file
+function add_CD(retailers, CD){
+    FS = "|"
+    OFS = "|"
+
+    output_file = path "Historical_SNAP_Retailer_Locator_Incomes_CD.csv"
+    while ((getline <retailers)>0){
+
+	if ($9 in CD_dict){
+	    print $0, CD_dict[$9] >output_file
+	}
+	
+	else{
+#	    print "ZIPCODE", $9, " NOT FOUND"
+	    print $0, "NO_CD_DATA" >output_file
+	}
+    }
+}

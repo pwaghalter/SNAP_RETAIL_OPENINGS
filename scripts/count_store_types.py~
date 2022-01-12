@@ -1,0 +1,51 @@
+# have a file  with what opened in each county - aka how many of each type, and what year
+# have a file with expected num jobs created by each opening in a year
+
+# look one year at a time
+# for each county: create dict with key: year data: counter, key=store type
+
+# write file: county, year w greatest expected delta, greatest expected delta
+#from pyspark import *
+
+from collections import Counter, defaultdict
+def get_fields(s):
+
+    fields = s.split("|")
+    return fields[16], (fields[2]+" "+fields[13][-4:], 0)
+
+retailers = "../SNAP_DATA/Historical_SNAP_Retailer_Locator_Incomes_counties.csv"
+
+# load this into a dict for O(1) access later
+model = "../SNAP_DATA/employment_model"
+
+#sc = SparkContext()
+
+#retailers_rdd = sc.textFile(retailers)
+
+#type_year_county = retailers_rdd.map(get_fields)
+#print(type_year_county.take(10))
+#reduced_by_county = type_year_county.reduceByKey(lambda x, y: (x[0],) 
+
+counties = defaultdict(Counter)
+
+#counties[1][1]+=1
+
+with open(retailers) as r:
+
+     for line in r:
+         fields = line.split("|")
+
+         # dictionary whose keys are counties
+         # data is a counter (tally) of types of stores concatenated with years
+         counties[fields[16]][fields[2]+" "+fields[13][-4:]]+=1
+
+# send this data to a file. This will be unpacked in the next script and we'll get the greatest expected delta
+with open('../SNAP_DATA/county_store_count', 'w') as csc:
+    for county in counties:
+        line = county + "$" + str(counties[county]) + "\n"
+
+        csc.write(line)
+
+        
+
+         

@@ -1,0 +1,4 @@
+$ row delimiter, seperates CD from next CD
+: seperates CD from corresponding dates
+| seperates set of start,end dates
+, seperates start and end dates

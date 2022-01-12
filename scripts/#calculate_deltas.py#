@@ -1,0 +1,32 @@
+from pyspark import *
+
+snap_dir = "../SNAP_DATA/SNAP-FNS388a-10"
+start_end = "../SNAP_DATA/start_end_delta"
+sc = SparkContext()
+
+# load SNAP data into RDD
+# the data is organizes as such:
+# Biannual documents of counties and SNAP data
+snap_data = sc.textFile(snap_dir+"/*")
+#head = snap_data.take(100)
+
+# load start/end dates by counties
+with open(start_end) as se:
+    file = se.read()
+
+    lines = file.split("$")
+
+
+    for l in lines:
+        cd = l.split(":")[0]
+
+        curr_snap_cd = snap_data.filter(lambda s: s[0:4]==cd)
+        head = snap_data.collect()
+        print(head)
+# need to loop through sebc bc cd to get deltas for each year and then isolate the best delta for each year (this can be done in seperate file)
+
+
+
+    
+
+

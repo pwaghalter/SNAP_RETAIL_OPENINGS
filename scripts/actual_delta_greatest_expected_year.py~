@@ -1,0 +1,29 @@
+expected = '../SNAP_DATA/greatest_expected_delta_year_by_county'
+
+yearly_deltas = '../SNAP_DATA/DELTAS/'
+
+#with open(expected) as e:
+file = open(expected)
+lines = file.readlines()[2:]
+
+for line in lines:
+        
+        fields = line.split("|")
+        county, year, e_delta = fields[0], fields[1], fields[2]
+        
+        #print(county, year, e_delta)
+        try: end = int(year)+2
+        except: print(line)
+        
+        actual_delta_file = yearly_deltas+str(year)+"_"+str(int(year)+2)
+        with open(actual_delta_file) as a:
+
+            for temp in a:
+                t = temp.split("|")
+                if t[0]==county:
+                    print(t[0])
+                    
+                        
+#        except: print(line)
+
+close(expected)

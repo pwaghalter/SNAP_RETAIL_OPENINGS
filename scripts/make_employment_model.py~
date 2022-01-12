@@ -1,0 +1,4 @@
+store_type = "../SNAP_DATA/store_type"
+
+with open(store_type) as s:
+    print(s.read())

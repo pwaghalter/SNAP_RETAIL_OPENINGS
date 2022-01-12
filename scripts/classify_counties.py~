@@ -1,0 +1,15 @@
+# classify each county as either rich or poor
+
+# argv[1] = SNAP_DATA/ZIP_COUNTY_092021.csv
+# argv[2] = IncomePop.gz
+# argv[3] = SNAP_DATA/county_pop
+
+# need to go through each zip in argv[1] and find out what proportion of the total pop of that county is in that zip, using argv[3]
+# then need to multiply median income (in argv[2]) of that zip by the proportion of the pop in that zip and add it to the income of that county
+
+zip_county_file = open(argv[1]).read()
+
+county_pop_file = open(argv[3])
+
+county_pop_dict = dict(line.split("|") for line in county_pop_file)
+print(county_pop_dict)

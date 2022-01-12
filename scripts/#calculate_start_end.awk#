@@ -1,0 +1,9 @@
+BEGIN{
+    path = "/home/penina/Desktop/Linux/SemesterProject/SNAP_DATA/"
+    SNAP_DIR = path "SNAP-FNS388a-10"
+    retailers = path "Historical_SNAP_Retailer_Locator_Incomes_CD.csv"
+}
+
+function calculate_delta_years(retailers){
+    
+}

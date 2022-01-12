@@ -1,0 +1,54 @@
+# purpose of this file is for each CD to write all start end dates of retailer accepting SNAP (will avg deltas of the dates)
+
+from collections import defaultdict as dd
+import csv
+def main():
+
+    path = "/home/penina/Desktop/Linux/SemesterProject/SNAP_DATA/"
+    retailers = path+"Historical_SNAP_Retailer_Locator_Incomes_CD.csv"
+
+    calculate_start_end(retailers)
+
+def calculate_start_end(retailers):
+
+    # initialize default dict to hold lists
+    start_end = dd(list)
+
+    # iterate through retailers marking congressional districts and their start and end dates
+    with open(retailers) as file:
+        f = file.readline()
+
+        while f:
+            fields = f.split("|")
+
+            cd = fields[16].strip()
+
+            # find the start/end dates for analysis
+            # looking at 2 year period after which store opened
+            try:
+                x = int(fields[13][6:])
+                y = int(fields[13][6:])+2
+            except:
+                x = fields[13]
+                y = fields[14]
+                print(fields[13], fields[14], "ERROR")
+
+            data = str(x)+","+str(y)+"|"
+
+            # create dict with key=cd, data=start,end dates
+            start_end[cd]+=[data]
+            f = file.readline()
+
+    # write to cd and dates to file
+    with open("../SNAP_DATA/start_end_delta", "w") as output:
+        for data in start_end:
+
+            dates = ""
+            for item in start_end[data]: dates+=item
+
+            line =data+":"+ dates
+            output.write(line)
+            output.write("$")
+
+
+main()

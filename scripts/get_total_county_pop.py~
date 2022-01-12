@@ -1,0 +1,19 @@
+import sys
+from collections import defaultdict as dd
+
+# argv[1] = ZIP_COUNTY_092021.csv
+# argv[2] = IncomePop.gz
+
+county_zip = {}
+county_zip_file = open(sys.argv[1]).read()
+for line in county_zip_file:
+    county_zip[]
+    
+
+#county_pop = open(sys.argv[2]).read().split()
+
+for c in county_zip: print(c)
+
+# 0 means no corresponding county
+# zip = key, county = data
+c_z_dict = dd(lambda: 0)

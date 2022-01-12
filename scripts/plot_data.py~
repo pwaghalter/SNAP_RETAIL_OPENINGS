@@ -1,0 +1,8 @@
+data = open('../county_expected_actual').read()
+
+fields = data.split()
+
+print(fields)
+
+
+
