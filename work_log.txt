@@ -1,0 +1,14 @@
+Hypothesis: When a retail store that accepts SNAP opens in a low income neighborhood, the number of people on SNAP in that area does not change more than when a retail store that accepts SNAP opens in a high income neighborhood
+
+Plan:
+[X] Tag retailes with median income - script in scripts dir is the correct one, don't know why there's one in main dir
+[X] Map zip codes of retailers to counties
+[X] Calculate change in number of people on SNAP in each district for 2 years before and after accepting snap
+   [X] Calculate change for each interval of 2 years
+   [X] Create model of expected change - moving on until meeting to discuss
+   [X] Find year with greatest expected change for each county
+   [X] For each district, find actual change in year with greatest expected change
+[X] Plot data
+   [X] Plot delta expected employment against negative delta SNAP
+
+
